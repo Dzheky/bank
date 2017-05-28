@@ -8,7 +8,7 @@ export const LOCATION_CHANGE = 'LOCATION_CHANGE'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function locationChange (location = '/') {
+export function locationChange (location = '/scheta') {
   return {
     type    : LOCATION_CHANGE,
     payload : location

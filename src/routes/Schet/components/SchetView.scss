@@ -1,0 +1,143 @@
+@mixin greyText {
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #999999;
+}
+
+.schet__container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: column;
+  height: 100%;
+}
+
+.schet__transactions-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.schet {
+  padding: 32px 45px;
+  width: 450px;
+}
+
+.schet__header {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.schet__header-name {
+  font-family: Roboto;
+  font-size: 20px;
+  line-height: 1;
+  color: #333333;
+}
+
+.schet__amount {
+  font-family: Roboto;
+  font-size: 24px;
+  line-height: 0.83;
+  color: #333333;
+  margin: 15px 0px;
+}
+
+.schet__percent {
+  @include greyText
+}
+
+.schet__created {
+  @include greyText
+}
+
+.schet__last-transaction {
+  @include greyText
+}
+
+.schet__last-transaction--green {
+  color: #6ece1a !important;
+}
+
+.schet__last-transaction--red {
+  color: #de1c28 !important;
+}
+
+.schet__transactions-title {
+  @include greyText
+  align-self: flex-start;
+  padding: 40px 45px 0px 45px;
+}
+
+.schet__transactions-container {
+  width: 100%;
+  overflow-y: auto;
+  padding: 6px 25px;
+  margin-bottom: 50px;
+}
+
+.schet__transactions-container::-webkit-scrollbar-track {
+	background-color: #e4e4e4;
+  border-radius: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.schet__transactions-container::-webkit-scrollbar {
+	width: 10px;
+	background-color: transparent;
+}
+
+.schet__transactions-container::-webkit-scrollbar-thumb {
+	background-color: #52aff1;
+  border-radius: 10px;
+}
+
+.schet__transaction-container {
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.schet__transaction-date {
+  @include greyText
+}
+
+.schet__transaction-footer {
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #262626;
+}
+
+.schet__transaction-amount {
+  margin-left: 10px;
+}
+
+.schet__transaction-amount--green {
+  color: #6ece1a;
+}
+
+.schet__transaction-amount--red {
+  color: #de1c28;
+}
+
+.schet__transaction-container--grey {
+  background-color: #f9f9f9;
+  border-top: solid 1px #eeeeee;
+  border-bottom: solid 2px #eeeeee;
+}
+
+.schet__transaction-footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.schet__header-open-button-image {
+  cursor: pointer;
+}

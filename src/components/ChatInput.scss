@@ -1,0 +1,39 @@
+.chat-input {
+  padding: 62px 100px 58px 100px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.chat-input__nametag {
+  align-self: flex-start;
+  font-family: Roboto;
+  font-size: 30px;
+  text-align: left;
+  color: #333333;
+  margin-bottom: 13px;
+}
+
+.chat-input__textarea {
+  font-family: Roboto;
+  font-size: 14px;
+  resize: none;
+  width: 100%;
+  height: 120px;
+  padding: 14px 17px;
+  border: solid 1px #dedede;
+}
+
+.chat-input__button {
+  cursor: pointer;
+  width: 90px;
+  font-family: Roboto;
+  font-size: 12px;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 11px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  background-color: #52aff1;
+}

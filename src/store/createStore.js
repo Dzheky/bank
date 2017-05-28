@@ -3,16 +3,11 @@ import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
+import { persistStore, autoRehydrate } from 'redux-persist'
 
 const createStore = (initialState = {}) => {
-  // ======================================================
-  // Middleware Configuration
-  // ======================================================
   const middleware = [thunk]
 
-  // ======================================================
-  // Store Enhancers
-  // ======================================================
   const enhancers = []
   let composeEnhancers = compose
 
@@ -22,18 +17,20 @@ const createStore = (initialState = {}) => {
     }
   }
 
-  // ======================================================
-  // Store Instantiation and HMR Setup
-  // ======================================================
   const store = createReduxStore(
     makeRootReducer(),
     initialState,
     composeEnhancers(
       applyMiddleware(...middleware),
+      autoRehydrate(),
       ...enhancers
     )
   )
   store.asyncReducers = {}
+  persistStore(store)
+
+  // Use to purge the store :
+   persistStore(store).purge()
 
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
   store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
