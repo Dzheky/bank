@@ -18,7 +18,7 @@ class Vklad extends React.Component {
 
   render () {
     let amount = 0
-    this.props.vklad.transactions.forEach((t) => { amount += parseInt(t.debit) })
+    this.props.vklad.transactions.forEach((t) => { amount += parseInt(t.debit.split(' ').join('')) })
     amount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     return (
       <div className='vklad-main'>
