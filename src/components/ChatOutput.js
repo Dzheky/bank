@@ -1,11 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { sendMessage, typing, cancelTyping } from '../store/chat'
 import PropTypes from 'prop-types'
 import './ChatOutput.scss'
 
 class App extends React.Component {
   static propTypes = {
     messages: PropTypes.array.isRequired,
+    startTyping: PropTypes.func.isRequired,
+    cancelTyping: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
     inTyping: PropTypes.bool.isRequired,
     outTyping: PropTypes.bool.isRequired
   }
@@ -122,7 +126,26 @@ class App extends React.Component {
     )
   }
 
+  firstMessage = (messages) => {
+    let firstMessage = 'Привет, я бы хотел открыть новый счет, не могли бы вы мне помочь с этим?'
+    let alreadySent = messages.some((m) => {
+      return m.message === firstMessage
+    })
+    if (!alreadySent) {
+      clearTimeout(this.timer)
+      this.props.startTyping('IN_TYPING')
+      this.timer = setTimeout(() => {
+        this.props.cancelTyping('IN_TYPING')
+        this.props.sendMessage(firstMessage, 'IN')
+      }, 5000)
+    } else {
+      this.props.cancelTyping('IN_TYPING')
+      clearTimeout(this.timer)
+    }
+  }
+
   renderMessages = (messages) => {
+    this.firstMessage(messages)
     let date = 0
     let result = []
     if (this.props.inTyping) {
@@ -179,4 +202,10 @@ const mapStateToProps = (state) => ({
   inTyping: state.chat.typing.inTyping
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = {
+  sendMessage: (message, type) => sendMessage(message, type),
+  startTyping: messageType => typing(messageType),
+  cancelTyping: messageType => cancelTyping(messageType)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

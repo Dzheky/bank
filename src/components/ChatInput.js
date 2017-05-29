@@ -18,11 +18,9 @@ class App extends React.Component {
   }
 
   handleTextChange = event => {
-    console.log('yooo')
     if (event.target.value.length && !this.props.outTyping) {
       this.props.startTyping('OUT_TYPING')
     } else if (event.target.value.length === 0 && this.props.outTyping) {
-      console.log('SDFSDFSDFDS')
       this.props.cancelTyping('OUT_TYPING')
     }
     this.setState({

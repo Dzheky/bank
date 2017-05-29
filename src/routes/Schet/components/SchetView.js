@@ -9,11 +9,7 @@ class App extends React.Component {
   static propTypes = {
     schets: PropTypes.array.isRequired,
     sendTransaction: PropTypes.func.isRequired,
-    startTyping: PropTypes.func.isRequired,
-    cancelTyping: PropTypes.func.isRequired,
-    sendMessage: PropTypes.func.isRequired,
     params: PropTypes.object,
-    messages: PropTypes.array.isRequired
   }
 
   state = {
@@ -24,18 +20,6 @@ class App extends React.Component {
     this.setState({
       value: value.target.value
     })
-  }
-
-  componentDidMount () {
-    let firstMessage = 'Привет, я бы хотел открыть новый счет, не могли бы вы мне помочь с этим?'
-    let alreadySent = this.props.messages.some((m) => m.message === firstMessage)
-    if (!alreadySent) {
-      this.props.startTyping('IN_TYPING')
-      setTimeout(() => {
-        this.props.cancelTyping('IN_TYPING')
-        this.props.sendMessage(firstMessage, 'IN')
-      }, 5000)
-    }
   }
 
   renderSchet = (schet, id) => {
@@ -147,10 +131,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  sendTransaction: (transaction, type) => sendTransaction(transaction, type),
-  sendMessage: (message, type) => sendMessage(message, type),
-  startTyping: messageType => typing(messageType),
-  cancelTyping: messageType => cancelTyping(messageType)
+  sendTransaction: (transaction, type) => sendTransaction(transaction, type)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

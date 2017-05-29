@@ -60,7 +60,6 @@ const ACTION_HANDLERS = {
       name: action.messageType === 'IN' ? 'Джош' : 'Лиза',
       message: action.message
     }
-    console.log(message)
     return {
       ...state,
       messages: [message, ...state.messages]
@@ -89,7 +88,6 @@ const ACTION_HANDLERS = {
     }
   },
   [CANCEL_TYPING]: (state, action) => {
-    console.log(action.messageType)
     return {
       ...state,
       typing: {
