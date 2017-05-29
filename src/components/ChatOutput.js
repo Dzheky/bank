@@ -71,6 +71,57 @@ class App extends React.Component {
     )
   }
 
+  renderInTransaction = (transaction, id) => {
+    return (
+      <div className='chat-output__in-transaction'>
+        <img src={transaction.picture} alt={transaction.name} width={50} height={50} className='chat-output__picture' />
+        <div className='chat-output__transaction-text'>
+          {this.renderTransaction(transaction.message)}
+        </div>
+      </div>
+    )
+  }
+
+  renderOutTransaction = (transaction, id) => {
+    return (
+      <div className='chat-output__out-transaction'>
+        <div className='chat-output__transaction-text'>
+          {this.renderTransaction(transaction.message)}
+        </div>
+        <img src={transaction.picture} alt={transaction.name} width={50} height={50} className='chat-output__picture' />
+      </div>
+    )
+  }
+
+  renderTransaction = (transaction) => {
+    console.log(transaction)
+    let debit = !!transaction.debit
+    return (
+      <div className='schet__transaction-header'>
+        <div className='schet__transaction-name'>
+          {'Операция'}
+        </div>
+        <div className='schet__transaction-date'>
+          {transaction.date}
+        </div>
+        <div className='schet__transaction-footer'>
+          <div className='schet__transaction-description'>
+            {transaction.description}
+          </div>
+          <div className='schet__transaction-amount'>
+            {debit
+            ? <span className='schet__transaction-amount--green'>
+              {`+ ${transaction.debit}`}
+            </span>
+            : <span className='schet__transaction-amount--red'>
+              {`- ${transaction.credit}`}
+            </span>}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   renderMessages = (messages) => {
     let date = 0
     let result = []
@@ -104,6 +155,10 @@ class App extends React.Component {
         result.push(this.renderIn(message, id))
       } else if (message.type === 'OUT') {
         result.push(this.renderOut(message, id))
+      } else if (message.type === 'IN_TRANSACTION') {
+        result.push(this.renderInTransaction(message, id))
+      } else if (message.type === 'OUT_TRANSACTION') {
+        result.push(this.renderOutTransaction(message, id))
       }
     })
     return result

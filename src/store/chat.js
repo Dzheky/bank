@@ -2,6 +2,7 @@
 // Constants
 // ------------------------------------
 export const SEND_MESSAGE = 'SEND_MESSAGE'
+export const SEND_TRANSACTION = 'SEND_TRANSACTION'
 export const TYPING = 'TYPING'
 export const CANCEL_TYPING = 'CANCEL_TYPING'
 
@@ -10,6 +11,13 @@ const URL = 'http://localhost:3000'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export function sendTransaction (transaction, messageType) {
+  return {
+    type: SEND_TRANSACTION,
+    transaction,
+    messageType
+  }
+}
 export function sendMessage (message, messageType) {
   return {
     type: SEND_MESSAGE,
@@ -33,7 +41,10 @@ export function cancelTyping (messageType) {
 }
 
 export const actions = {
-  sendMessage
+  sendMessage,
+  typing,
+  cancelTyping,
+  sendTransaction
 }
 
 // ------------------------------------
@@ -50,6 +61,19 @@ const ACTION_HANDLERS = {
       message: action.message
     }
     console.log(message)
+    return {
+      ...state,
+      messages: [message, ...state.messages]
+    }
+  },
+  [SEND_TRANSACTION]: (state, action) => {
+    let message = {
+      type: action.messageType,
+      date: new Date(),
+      picture: action.messageType === 'IN_TRANSACTION' ? URL + '/img/Josh.png' : URL + '/img/Liza.png',
+      name: action.messageType === 'IN_TRANSACTION' ? 'Джош' : 'Лиза',
+      message: action.transaction
+    }
     return {
       ...state,
       messages: [message, ...state.messages]
@@ -104,7 +128,7 @@ const initialState = {
       date: '2017-05-24T12:56:33.468Z',
       picture: 'http://localhost:3000/img/Liza.png',
       name: 'Лиза',
-      message: 'Женя, уже подключила вам новый тариф, на котором процент на остаток в счетах будет еще больше'
+      message: 'Джош, уже подключила вам новый тариф, на котором процент на остаток в счетах будет еще больше'
     },
     {
       type: 'OUT',
@@ -119,20 +143,6 @@ const initialState = {
       picture: 'http://localhost:3000/img/Josh.png',
       name: 'Джош',
       message: 'Привет. А как перейти на тариф, на котором самый большой процент на остаток по счетам?'
-    },
-    {
-      type: 'OUT',
-      date: '2017-05-24T12:56:33.468Z',
-      picture: 'http://localhost:3000/img/Liza.png',
-      name: 'Лиза',
-      message: 'Привет!'
-    },
-    {
-      type: 'OUT',
-      date: '2017-05-24T12:56:33.468Z',
-      picture: 'http://localhost:3000/img/Liza.png',
-      name: 'Лиза',
-      message: 'Привет!'
     },
     {
       type: 'OUT',

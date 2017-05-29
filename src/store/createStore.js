@@ -30,7 +30,7 @@ const createStore = (initialState = {}) => {
   persistStore(store)
 
   // Use to purge the store :
-   persistStore(store).purge()
+  // persistStore(store).purge()
 
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
   store.unsubscribeHistory = browserHistory.listen(updateLocation(store))

@@ -58,6 +58,22 @@
   width: 100%;
 }
 
+.chat-output__in-transaction {
+  padding-right: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.chat-output__out-transaction {
+  padding-left: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
 .chat-output__picture {
   border: solid 2px #ffffff;
   border-radius: 25px;
@@ -65,6 +81,11 @@
 
 .chat-output__in-text {
   @include text
+}
+
+.chat-output__transaction-text {
+  @include text
+  border: solid 1px #52aff1;
 }
 
 .chat-output__out-text {

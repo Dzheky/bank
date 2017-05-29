@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { locationChange } from '../../../store/location'
+import { sendTransaction, sendMessage, typing, cancelTyping } from '../../../store/chat'
 import { Link } from 'react-router'
 import PropTypes from 'prop-types'
 import './SchetView.scss'
@@ -8,7 +8,12 @@ import './SchetView.scss'
 class App extends React.Component {
   static propTypes = {
     schets: PropTypes.array.isRequired,
-    params: PropTypes.object
+    sendTransaction: PropTypes.func.isRequired,
+    startTyping: PropTypes.func.isRequired,
+    cancelTyping: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    params: PropTypes.object,
+    messages: PropTypes.array.isRequired
   }
 
   state = {
@@ -21,8 +26,16 @@ class App extends React.Component {
     })
   }
 
-  handleOpen = () => {
-    this.props.sendMessage(this.state.value, 'OUT')
+  componentDidMount () {
+    let firstMessage = 'Привет, я бы хотел открыть новый счет, не могли бы вы мне помочь с этим?'
+    let alreadySent = this.props.messages.some((m) => m.message === firstMessage)
+    if (!alreadySent) {
+      this.props.startTyping('IN_TYPING')
+      setTimeout(() => {
+        this.props.cancelTyping('IN_TYPING')
+        this.props.sendMessage(firstMessage, 'IN')
+      }, 5000)
+    }
   }
 
   renderSchet = (schet, id) => {
@@ -77,6 +90,10 @@ class App extends React.Component {
     )
   }
 
+  handleTransactionSend = (transaction) => {
+    this.props.sendTransaction(transaction, 'OUT_TRANSACTION')
+  }
+
   renderTransaction = (transaction, id) => {
     let debit = !!transaction.debit
     let odd = id % 2 !== 0
@@ -102,7 +119,7 @@ class App extends React.Component {
           </div>
         </div>
         <img src='http://localhost:3000/img/mingle-share.png'
-          onClick={() => { console.log(transaction) }}
+          onClick={() => { this.handleTransactionSend(transaction) }}
           width={15}
           height={15}
           className='schet__header-open-button-image' />
@@ -125,7 +142,15 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  schets: state.schet
+  schets: state.schet,
+  messages: state.chat.messages
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = {
+  sendTransaction: (transaction, type) => sendTransaction(transaction, type),
+  sendMessage: (message, type) => sendMessage(message, type),
+  startTyping: messageType => typing(messageType),
+  cancelTyping: messageType => cancelTyping(messageType)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

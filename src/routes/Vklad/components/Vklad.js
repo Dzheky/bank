@@ -1,11 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { sendTransaction } from '../../../store/chat'
 import { Link } from 'react-router'
 import PropTypes from 'prop-types'
 import './Vklad.scss'
 
 class Vklad extends React.Component {
   static propTypes = {
+    sendTransaction: PropTypes.func.isRequired,
     vklad: PropTypes.object.isRequired,
     vkladID: PropTypes.number.isRequired
   }
@@ -76,10 +78,6 @@ class App extends React.Component {
     })
   }
 
-  handleOpen = () => {
-    this.props.sendMessage(this.state.value, 'OUT')
-  }
-
   renderVklad = (vklad, id) => {
     return (
       <Vklad vkladID={id} vklad={vklad} />
@@ -99,6 +97,10 @@ class App extends React.Component {
         </div>
       </div>
     )
+  }
+
+  handleTransactionSend = (transaction) => {
+    this.props.sendTransaction(transaction, 'OUT_TRANSACTION')
   }
 
   renderTransaction = (transaction, id) => {
@@ -126,7 +128,7 @@ class App extends React.Component {
           </div>
         </div>
         <img src='http://localhost:3000/img/mingle-share.png'
-          onClick={() => { console.log(transaction) }}
+          onClick={() => { this.handleTransactionSend(transaction) }}
           width={15}
           height={15}
           className='vklad__header-open-button-image' />
@@ -152,4 +154,8 @@ const mapStateToProps = state => ({
   vklady : state.vklady
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = {
+  sendTransaction: (transaction, type) => sendTransaction(transaction, type)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

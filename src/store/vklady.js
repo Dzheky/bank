@@ -23,7 +23,7 @@ const initialState = [
       },
       {
         date: '08.12.2016 | 12:00',
-        debit: '1 00',
+        debit: '100',
         description: 'Начисление процентов'
       },
       {
@@ -98,35 +98,35 @@ const initialState = [
     ]
   },
   {
-    number: '546187913',
-    money: '15 350',
+    number: '5555555',
+    money: '11 450',
     currency: '₽',
     percent: '15',
     date_created: '01.01.2016 | 13:00',
     transactions: [
       {
         date: '08.03.2017 | 12:00',
-        debit: '1 350',
+        debit: '2 350',
         description: 'Начисление процентов'
       },
       {
         date: '08.02.2017 | 12:00',
-        debit: '1 200',
+        debit: '3 200',
         description: 'Начисление процентов'
       },
       {
         date: '08.01.2017 | 12:00',
-        debit: '1 100',
+        debit: '14 100',
         description: 'Начисление процентов'
       },
       {
         date: '08.12.2016 | 12:00',
-        debit: '1 00',
+        debit: '2 424',
         description: 'Начисление процентов'
       },
       {
         date: '08.11.2016 | 12:00',
-        debit: '950',
+        debit: '222',
         description: 'Начисление процентов'
       },
       {
